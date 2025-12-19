@@ -1,0 +1,595 @@
+openapi: 3.0.3
+info:
+  title: Random Image API
+  description: 一个高性能的随机图片服务，支持多线程、Redis缓存、CORS支持和智能缓存管理
+  version: 2.1.0
+  contact:
+    name: API Support
+    email: support@example.com
+  license:
+    name: GPL-3.0
+    url: https://www.gnu.org/licenses/gpl-3.0.en.html
+
+servers:
+  - url: http://localhost:3000
+    description: 本地开发环境
+  - url: https://api.example.com
+    description: 生产环境
+
+paths:
+  /api:
+    get:
+      summary: 获取随机图片
+      description: 从所有目录中随机返回一张图片
+      operationId: getRandomImage
+      parameters:
+        - name: json
+          in: query
+          description: 是否返回JSON格式
+          required: false
+          schema:
+            type: integer
+            enum: [1]
+      responses:
+        '200':
+          description: 图片文件或JSON信息
+          content:
+            image/jpeg:
+              schema:
+                type: string
+                format: binary
+            image/png:
+              schema:
+                type: string
+                format: binary
+            image/gif:
+              schema:
+                type: string
+                format: binary
+            image/webp:
+              schema:
+                type: string
+                format: binary
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageInfo'
+        '404':
+          description: 没有找到图片
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: 请求过于频繁
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitResponse'
+
+  /api/{directory}:
+    get:
+      summary: 从指定目录获取随机图片
+      description: 从指定目录中随机返回一张图片
+      operationId: getRandomImageFromDirectory
+      parameters:
+        - name: directory
+          in: path
+          description: 目录名称
+          required: true
+          schema:
+            type: string
+        - name: json
+          in: query
+          description: 是否返回JSON格式
+          required: false
+          schema:
+            type: integer
+            enum: [1]
+      responses:
+        '200':
+          description: 图片文件或JSON信息
+          content:
+            image/jpeg:
+              schema:
+                type: string
+                format: binary
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageInfo'
+        '404':
+          description: 目录不存在或没有图片
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/{directory}/{filename}:
+    get:
+      summary: 获取特定图片
+      description: 获取特定目录下的特定图片
+      operationId: getSpecificImage
+      parameters:
+        - name: directory
+          in: path
+          description: 目录名称
+          required: true
+          schema:
+            type: string
+        - name: filename
+          in: path
+          description: 图片文件名
+          required: true
+          schema:
+            type: string
+        - name: json
+          in: query
+          description: 是否返回JSON格式
+          required: false
+          schema:
+            type: integer
+            enum: [1]
+      responses:
+        '200':
+          description: 图片文件或JSON信息
+          content:
+            image/jpeg:
+              schema:
+                type: string
+                format: binary
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageInfo'
+        '404':
+          description: 图片不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /list.json:
+    get:
+      summary: 获取所有图片列表
+      description: 获取所有图片的列表信息
+      operationId: getImageList
+      responses:
+        '200':
+          description: 图片列表
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+                  additionalProperties:
+                    type: string
+
+  /stats:
+    get:
+      summary: 获取统计信息
+      description: 获取图片服务的详细统计信息
+      operationId: getStats
+      responses:
+        '200':
+          description: 统计信息
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  generated:
+                    type: string
+                    format: date-time
+                  stats:
+                    type: object
+                    properties:
+                      totalImages:
+                        type: integer
+                      totalDirectories:
+                        type: integer
+                      directories:
+                        type: object
+                        additionalProperties:
+                          type: integer
+                  timezone:
+                    type: string
+
+  /update:
+    get:
+      summary: 手动更新图片列表
+      description: 手动触发图片列表更新
+      operationId: updateImageList
+      parameters:
+        - name: token
+          in: query
+          description: 验证令牌
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 更新成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          description: 未授权
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /health:
+    get:
+      summary: 健康检查
+      description: 检查服务健康状态
+      operationId: healthCheck
+      responses:
+        '200':
+          description: 服务健康
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthCheck'
+        '503':
+          description: 服务不健康
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /cache/status:
+    get:
+      summary: 缓存状态
+      description: 获取缓存状态信息
+      operationId: getCacheStatus
+      responses:
+        '200':
+          description: 缓存状态
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CacheStatus'
+
+  /cache/clear:
+    post:
+      summary: 清空缓存
+      description: 清空所有缓存
+      operationId: clearCache
+      parameters:
+        - name: token
+          in: query
+          description: 验证令牌
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 缓存已清空
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          description: 未授权
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /cache/reconnect:
+    post:
+      summary: 手动Redis重连
+      description: 手动触发Redis重连
+      operationId: reconnectRedis
+      responses:
+        '200':
+          description: 重连已触发
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+
+  /cache/reset:
+    post:
+      summary: 重置Redis重试计数
+      description: 重置Redis重试计数
+      operationId: resetRedisRetryCount
+      parameters:
+        - name: token
+          in: query
+          description: 验证令牌
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 重试计数已重置
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          description: 未授权
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /cache/ttl/{key}:
+    get:
+      summary: 获取缓存TTL
+      description: 获取缓存键的过期时间
+      operationId: getCacheTTL
+      parameters:
+        - name: key
+          in: path
+          description: 缓存键
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: TTL信息
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  key:
+                    type: string
+                  ttl:
+                    type: integer
+                  message:
+                    type: string
+                  timestamp:
+                    type: string
+
+  /cache/expire/{key}:
+    post:
+      summary: 设置缓存过期时间
+      description: 设置缓存键的过期时间
+      operationId: setCacheExpire
+      parameters:
+        - name: key
+          in: path
+          description: 缓存键
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: 过期时间设置
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                seconds:
+                  type: integer
+                  default: 3600
+      responses:
+        '200':
+          description: 过期时间已设置
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  key:
+                    type: string
+                  seconds:
+                    type: integer
+                  message:
+                    type: string
+                  timestamp:
+                    type: string
+
+  /doc:
+    get:
+      summary: 获取API文档
+      description: 获取API文档信息
+      operationId: getApiDoc
+      responses:
+        '200':
+          description: API文档
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  version:
+                    type: string
+                  description:
+                    type: string
+                  endpoints:
+                    type: object
+                    additionalProperties:
+                      type: string
+                  timezone:
+                    type: string
+                  timestamp:
+                    type: string
+
+components:
+  schemas:
+    ImageInfo:
+      type: object
+      properties:
+        name:
+          type: string
+          description: 图片名称
+        size:
+          type: integer
+          description: 图片大小（字节）
+        uploadtime:
+          type: string
+          format: date-time
+          description: 上传时间
+        path:
+          type: string
+          description: 图片路径
+        processingTime:
+          type: integer
+          description: 处理时间（毫秒）
+
+    CacheStatus:
+      type: object
+      properties:
+        hits:
+          type: integer
+          description: 缓存命中次数
+        misses:
+          type: integer
+          description: 缓存未命中次数
+        total:
+          type: integer
+          description: 总请求次数
+        hitRate:
+          type: integer
+          description: 命中率（百分比）
+        keys:
+          type: integer
+          description: 缓存键数量
+        redisConnected:
+          type: boolean
+          description: Redis连接状态
+        retryCount:
+          type: integer
+          description: Redis重试次数
+        timestamp:
+          type: string
+          description: 时间戳
+
+    HealthCheck:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [OK, ERROR]
+          description: 健康状态
+        uptime:
+          type: object
+          properties:
+            seconds:
+              type: integer
+              description: 运行时间（秒）
+            human:
+              type: string
+              description: 可读性时间
+        memory:
+          type: object
+          properties:
+            rss:
+              type: string
+              description: 内存使用情况
+            heapTotal:
+              type: string
+              description: 堆内存总量
+            heapUsed:
+              type: string
+              description: 已使用堆内存
+            external:
+              type: string
+              description: 外部内存
+        cache:
+          $ref: '#/components/schemas/CacheStatus'
+        config:
+          type: object
+          properties:
+            autoUpdate:
+              type: string
+              description: 自动更新状态
+            https:
+              type: string
+              description: HTTPS状态
+            cors:
+              type: string
+              description: CORS状态
+            workers:
+              type: integer
+              description: 工作进程数量
+        timestamp:
+          type: string
+          description: 时间戳
+
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: 是否成功
+        message:
+          type: string
+          description: 响应消息
+        timestamp:
+          type: string
+          description: 时间戳
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 错误类型
+        message:
+          type: string
+          description: 错误消息
+        path:
+          type: string
+          description: 请求路径
+        processingTime:
+          type: integer
+          description: 处理时间（毫秒）
+        timestamp:
+          type: string
+          description: 时间戳
+
+    RateLimitResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 错误类型
+        message:
+          type: string
+          description: 错误消息
+        clientIP:
+          type: string
+          description: 客户端IP
+        limit:
+          type: integer
+          description: 限制次数
+        window:
+          type: integer
+          description: 时间窗口（秒）
+        banned:
+          type: boolean
+          description: 是否被封禁
+        remainingTime:
+          type: integer
+          description: 剩余封禁时间（秒）
+        banEndTime:
+          type: string
+          format: date-time
+          description: 封禁结束时间
+        reason:
+          type: string
+          description: 封禁原因
+        timestamp:
+          type: string
+          description: 时间戳
+
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: token
+      description: API密钥认证
+
+security:
+  - ApiKeyAuth: []
