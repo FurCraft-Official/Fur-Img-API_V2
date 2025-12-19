@@ -410,8 +410,7 @@ GPL-3.0
 
 ## 作者
 
-[BeiChen](https://www.beichen.icu)
-[BB0813](https://home.binbim.top)
+[BeiChen](https://www.beichen.icu) & [BB0813](https://home.binbim.top)
 
 ## 联系方式
 
