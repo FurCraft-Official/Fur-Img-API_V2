@@ -413,7 +413,18 @@ npm start
 
 ### Docker部署
 
-（待补充）
+#### 从Docker Hub直接运行（推荐）
+
+```bash
+docker run -d -p 13000:13000 -p 13001:13001 --name fur-img-api --restart unless-stopped binbim/fur-img-api:latest
+```
+
+#### 本地构建并运行
+
+```bash
+docker build -t fur-img-api:latest .
+docker run -d -p 13000:13000 -p 13001:13001 --name fur-img-api --restart unless-stopped fur-img-api:latest
+```
 
 ## 开发指南
 

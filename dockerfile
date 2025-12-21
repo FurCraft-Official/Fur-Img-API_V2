@@ -25,7 +25,7 @@ RUN mkdir -p /app/img /app/public /app/uploads && \
 USER nodeuser
 
 # 暴露 HTTP 和 HTTPS 端口
-EXPOSE 3000 3001
+EXPOSE 13000 13001
 
 # 创建匿名卷
 VOLUME ["/app/img", "/app/public", "/app/ssl"]
