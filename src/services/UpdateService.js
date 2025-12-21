@@ -20,6 +20,13 @@ class UpdateService {
   async start() {
     logManager.info('Update service started', { module: 'UPDATE' });
     
+    // 立即执行一次图片列表更新
+    try {
+      await this.updateImageList();
+    } catch (error) {
+      logManager.error(`Failed to update image list on startup: ${error.message}`, { module: 'UPDATE' });
+    }
+    
     // 如果配置了自动更新，启动定时任务
     if (this.config.update.hours > 0) {
       this.startAutoUpdate();
