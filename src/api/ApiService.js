@@ -306,13 +306,17 @@ class ApiService {
    * @returns {ImageDetails|null} 图片详情或null
    */
   findSpecificImage(directory, filename) {
+    // 构建目标路径，确保格式一致
     const targetPath = path.join(directory, filename).replace(/\\/g, '/');
     
     const found = this.imageDetails.find(img => {
+      // 确保比较时路径格式一致
+      const imgPath = img.path.replace(/\\/g, '/');
+      
       if (directory === '_root') {
         return img._directory === '_root' && img.name === filename;
       } else {
-        return img.path === targetPath;
+        return imgPath === targetPath;
       }
     });
     
@@ -320,6 +324,9 @@ class ApiService {
       logManager.debug(`Specific image found: ${found.name} at ${found.path}`, { module: 'API' });
     } else {
       logManager.debug(`Specific image not found: ${targetPath}`, { module: 'API' });
+      // 调试信息：显示所有图片路径
+      const allPaths = this.imageDetails.map(img => img.path.replace(/\\/g, '/'));
+      logManager.debug(`Available paths: ${allPaths.slice(0, 10).join(', ')}...`, { module: 'API' });
     }
     
     return found;
@@ -529,8 +536,23 @@ class ApiService {
       
       // 返回文件响应
       try {
-        const mimeType = selectedImage._mimeType || FileUtils.getMimeType(imagePath) || 'image/jpeg';
+        // 确保imagePath是绝对路径
+        const absolutePath = path.isAbsolute(imagePath) ? imagePath : path.resolve(imagePath);
         
+        // 检查文件是否存在
+        if (!(await this.cachedPathExists(absolutePath))) {
+          logManager.error(`File not found when sending: ${absolutePath}`, { module: 'API', request: req });
+          return res.status(404).json({
+            error: 'Image not found',
+            message: `File not found: ${selectedImage.name}`,
+            processingTime: Date.now() - startTime
+          });
+        }
+        
+        // 获取正确的MIME类型
+        const mimeType = selectedImage._mimeType || FileUtils.getMimeType(absolutePath) || 'image/jpeg';
+        
+        // 设置响应头
         res.setHeader('Content-Type', mimeType);
         res.setHeader('Cache-Control', isRandom ? 
           'no-cache, no-store, must-revalidate' : 
@@ -540,10 +562,18 @@ class ApiService {
         res.setHeader('X-Processing-Time', imageInfo.processingTime.toString());
         res.setHeader('X-Cache', 'MISS');
         
-        logManager.debug(`File response sent: ${selectedImage.name} (${imageInfo.processingTime}ms)`, { module: 'API', request: req });
-        return res.sendFile(path.resolve(imagePath));
+        logManager.debug(`Sending file: ${selectedImage.name} (${mimeType})`, { module: 'API', request: req });
+        
+        // 使用sendFile发送文件，确保中文路径正确处理
+        return res.sendFile(absolutePath, {
+          // 处理中文文件名
+          headers: {
+            'Content-Disposition': `inline; filename="${encodeURIComponent(selectedImage.name)}"`
+          }
+        });
       } catch (fileErr) {
         logManager.error(`Error sending file: ${fileErr.message}`, { module: 'API', request: req });
+        logManager.debug(`Error stack: ${fileErr.stack}`, { module: 'API' });
         return res.status(500).json({
           error: 'Internal server error',
           message: 'Failed to send image file',

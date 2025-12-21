@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片管理系统</title>
+    <link rel="stylesheet" href="/admin/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 顶部导航栏 -->
+        <header class="header">
+            <div class="header-left">
+                <h1>图片管理系统</h1>
+            </div>
+            <div class="header-right">
+                <button id="update-btn" class="btn btn-primary">更新图片列表</button>
+                <button id="clear-cache-btn" class="btn btn-secondary">清空缓存</button>
+            </div>
+        </header>
+
+        <!-- 主要内容区域 -->
+        <main class="main">
+            <!-- 左侧控制面板 -->
+            <aside class="sidebar">
+                <!-- 统计信息 -->
+                <section class="stats-section">
+                    <h2>系统统计</h2>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-label">总图片数</div>
+                            <div class="stat-value" id="total-images">--</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">总目录数</div>
+                            <div class="stat-value" id="total-directories">--</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">缓存状态</div>
+                            <div class="stat-value" id="cache-status">--</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">服务器状态</div>
+                            <div class="stat-value" id="server-status">--</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 目录管理 -->
+                <section class="directories-section">
+                    <div class="section-header">
+                        <h2>目录管理</h2>
+                        <button id="add-dir-btn" class="btn btn-small btn-primary">+ 新建</button>
+                    </div>
+                    <div class="directory-list" id="directory-list">
+                        <!-- 目录列表将通过JavaScript动态生成 -->
+                    </div>
+                </section>
+            </aside>
+
+            <!-- 右侧内容区域 -->
+            <section class="content">
+                <!-- 图片筛选和搜索 -->
+                <div class="toolbar">
+                    <div class="search-bar">
+                        <input type="text" id="search-input" placeholder="搜索图片..." class="search-input">
+                        <button id="search-btn" class="btn btn-small btn-primary">搜索</button>
+                    </div>
+                    <div class="filter-options">
+                        <select id="directory-filter" class="select-input">
+                            <option value="">所有目录</option>
+                            <!-- 目录选项将通过JavaScript动态生成 -->
+                        </select>
+                        <select id="sort-option" class="select-input">
+                            <option value="name">按名称排序</option>
+                            <option value="size">按大小排序</option>
+                            <option value="date">按日期排序</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- 图片列表 -->
+                <div class="images-container">
+                    <div class="images-header">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <h2>图片列表</h2>
+                            <div style="display: flex; gap: 1rem; align-items: center;">
+                                <div class="images-info">
+                                    <span id="images-count">0</span> 张图片
+                                </div>
+                                <button id="upload-btn" class="btn btn-primary">+ 上传图片</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="images-grid" id="images-grid">
+                        <!-- 图片列表将通过JavaScript动态生成 -->
+                    </div>
+                </div>
+
+                <!-- 分页控件 -->
+                <div class="pagination" id="pagination">
+                    <!-- 分页控件将通过JavaScript动态生成 -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- 模态框 -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">操作确认</h3>
+                <button class="close-btn" id="close-modal">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- 模态框内容将通过JavaScript动态生成 -->
+            </div>
+            <div class="modal-footer" id="modal-footer">
+                <!-- 模态框按钮将通过JavaScript动态生成 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 目录创建表单 -->
+    <div class="modal" id="dir-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>创建新目录</h3>
+                <button class="close-btn" id="close-dir-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="create-dir-form">
+                    <div class="form-group">
+                        <label for="dir-name">目录名称</label>
+                        <input type="text" id="dir-name" name="dir-name" class="form-input" placeholder="输入目录名称" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancel-dir-btn">取消</button>
+                <button class="btn btn-primary" id="submit-dir-btn">创建</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 图片详情模态框 -->
+    <div class="modal modal-large" id="image-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="image-modal-title">图片详情</h3>
+                <button class="close-btn" id="close-image-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="image-detail" id="image-detail">
+                    <!-- 图片详情将通过JavaScript动态生成 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 图片上传模态框 -->
+    <div class="modal" id="upload-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>上传图片</h3>
+                <button class="close-btn" id="close-upload-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="upload-form">
+                    <div class="form-group">
+                        <label for="upload-file">选择图片</label>
+                        <input type="file" id="upload-file" name="file" class="form-input" accept="image/*" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="upload-directory">选择目录</label>
+                        <select id="upload-directory" name="directory" class="select-input">
+                            <option value="">根目录</option>
+                            <!-- 目录选项将通过JavaScript动态生成 -->
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancel-upload-btn">取消</button>
+                <button class="btn btn-primary" id="submit-upload-btn">上传</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/admin/script.js"></script>
+</body>
+</html>

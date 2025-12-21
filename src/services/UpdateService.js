@@ -138,21 +138,34 @@ class UpdateService {
    */
   async scanDirectory(dirPath, relativePath, imageList, imageDetails, supportedExtensions) {
     try {
-      const files = await fs.readdir(dirPath, { withFileTypes: true });
+      // 在Windows系统上，不指定encoding，让fs.readdir返回Buffer对象，然后手动转换编码
+      // 这样可以避免系统编码问题
+      const files = await fs.readdir(dirPath, { withFileTypes: true, encoding: null });
       
       for (const file of files) {
-        const fullPath = path.join(dirPath, file.name);
-        const fileRelativePath = relativePath ? path.join(relativePath, file.name) : file.name;
-        
-        if (file.isDirectory()) {
-          // 递归扫描子目录
-          await this.scanDirectory(fullPath, fileRelativePath, imageList, imageDetails, supportedExtensions);
-        } else if (file.isFile()) {
-          // 检查文件扩展名
-          const ext = path.extname(file.name).toLowerCase();
-          if (supportedExtensions.includes(ext)) {
-            await this.processImageFile(fullPath, file.name, relativePath, imageList, imageDetails);
+        try {
+          // 将Buffer文件名转换为UTF-8字符串
+          const normalizedFileName = file.name instanceof Buffer 
+            ? file.name.toString('utf8') 
+            : file.name;
+          
+          // 构建完整路径
+          const fullPath = path.join(dirPath, normalizedFileName);
+          const fileRelativePath = relativePath ? path.join(relativePath, normalizedFileName) : normalizedFileName;
+          
+          if (file.isDirectory()) {
+            // 递归扫描子目录
+            await this.scanDirectory(fullPath, fileRelativePath, imageList, imageDetails, supportedExtensions);
+          } else if (file.isFile()) {
+            // 检查文件扩展名
+            const ext = path.extname(normalizedFileName).toLowerCase();
+            if (supportedExtensions.includes(ext)) {
+              await this.processImageFile(fullPath, normalizedFileName, relativePath, imageList, imageDetails);
+            }
           }
+        } catch (fileError) {
+          // 单个文件处理错误不影响整个扫描过程
+          logManager.error(`Error processing file in ${dirPath}: ${fileError.message}`, { module: 'UPDATE' });
         }
       }
     } catch (error) {

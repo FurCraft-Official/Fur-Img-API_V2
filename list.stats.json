@@ -1,9 +1,11 @@
 {
-  "generated": "2025-12-21T01:44:29.151Z",
+  "generated": "2025-12-21T18:55:35.992Z",
   "stats": {
-    "totalImages": 0,
-    "totalDirectories": 1,
+    "totalImages": 64,
+    "totalDirectories": 3,
     "directories": {
+      "test": 32,
+      "测试": 32,
       "_root": 0
     }
   },

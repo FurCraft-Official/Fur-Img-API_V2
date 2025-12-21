@@ -2,8 +2,11 @@ const express = require('express');
 const fs = require('fs-extra');
 const path = require('path');
 const https = require('https');
+const multer = require('multer');
+const iconv = require('iconv-lite');
 const logManager = require('../logging/LogManager');
 const ApiService = require('../api/ApiService');
+const AdminService = require('../api/AdminService');
 const FileUtils = require('../utils/FileUtils');
 
 /**
@@ -17,11 +20,41 @@ class WebServer {
     this.httpServer = null;
     this.httpsServer = null;
     this.apiService = null;
+    this.adminService = null;
     this.isRunning = false;
+    
+    // 初始化multer
+    this.initMulter();
     
     // 初始化工作进程ID
     process.env.WORKER_ID = process.env.WORKER_ID || 
       (require('cluster').worker ? require('cluster').worker.id : '1');
+  }
+  
+  /**
+   * 初始化multer配置
+   */
+  initMulter() {
+    // 内存存储配置 - memoryStorage不支持filename选项
+    this.multer = multer({
+      storage: multer.memoryStorage(),
+      limits: {
+        fileSize: 10 * 1024 * 1024, // 10MB文件大小限制
+        files: 1 // 单次只允许上传1个文件
+      },
+      fileFilter: (req, file, cb) => {
+        // 允许的图片格式
+        const allowedTypes = /jpeg|jpg|png|gif|webp|bmp|svg/;
+        const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
+        const mimetype = allowedTypes.test(file.mimetype);
+        
+        if (mimetype && extname) {
+          return cb(null, true);
+        } else {
+          cb(new Error('只允许上传图片文件'));
+        }
+      }
+    });
   }
 
   /**
@@ -52,6 +85,10 @@ class WebServer {
   async initializeApiService() {
     this.apiService = new ApiService(this.config, this.cacheManager);
     await this.apiService.start();
+    
+    // 初始化管理服务
+    this.adminService = new AdminService(this.config, this.cacheManager);
+    await this.adminService.initialize();
   }
 
   /**
@@ -71,7 +108,11 @@ class WebServer {
     this.app.use(express.urlencoded({ extended: true, limit: '1mb' }));
     
     // 静态文件服务
-    this.setupStaticFiles();
+    this.app.use(express.static(this.config.paths.html, {
+      maxAge: '1h',
+      etag: true,
+      lastModified: true
+    }));
   }
 
   /**
@@ -213,11 +254,249 @@ class WebServer {
     // 健康检查
     this.app.get('/health', this.getHealthCheck.bind(this));
     
+    // 管理路由
+    this.registerAdminRoutes();
+    
     // 404处理
     this.app.use('*', this.handle404.bind(this));
     
     // 错误处理
     this.app.use(this.errorHandler.bind(this));
+  }
+  
+  /**
+   * 注册管理路由
+   */
+  registerAdminRoutes() {
+    // 管理页面路由
+    this.app.get('/admin', this.getAdminPage.bind(this));
+    
+    // 图片管理
+    this.app.get('/admin/api/images', this.getAdminImages.bind(this));
+    this.app.delete('/admin/api/images/:path', this.validateToken.bind(this), this.deleteAdminImage.bind(this));
+    
+    // 目录管理
+    this.app.get('/admin/api/directories', this.getAdminDirectories.bind(this));
+    this.app.post('/admin/api/directories', this.validateToken.bind(this), this.createAdminDirectory.bind(this));
+    this.app.delete('/admin/api/directories/:name', this.validateToken.bind(this), this.deleteAdminDirectory.bind(this));
+    
+    // 系统管理
+    this.app.get('/admin/api/stats', this.getAdminStats.bind(this));
+    this.app.post('/admin/api/update', this.validateToken.bind(this), this.updateAdminImageList.bind(this));
+    this.app.post('/admin/api/cache/clear', this.validateToken.bind(this), this.clearAdminCache.bind(this));
+    
+    // 图片上传
+    this.app.post('/admin/api/upload', this.validateToken.bind(this), this.multer.single('file'), this.handleImageUpload.bind(this));
+  }
+  
+  /**
+   * 返回管理页面
+   */
+  async getAdminPage(req, res) {
+    try {
+      const adminPath = path.join(__dirname, '../../public/admin/index.html');
+      if (await fs.pathExists(adminPath)) {
+        res.sendFile(path.resolve(adminPath));
+      } else {
+        res.status(404).json({
+          error: 'Admin page not found',
+          message: 'Admin page has not been created yet.'
+        });
+      }
+    } catch (error) {
+      res.status(500).json({
+        error: 'Internal server error',
+        message: error.message
+      });
+    }
+  }
+  
+  /**
+   * 获取管理图片列表
+   */
+  async getAdminImages(req, res) {
+    try {
+      const result = await this.adminService.getImages(req.query);
+      res.json(result);
+    } catch (error) {
+      res.status(500).json({
+        error: 'Internal server error',
+        message: error.message
+      });
+    }
+  }
+  
+  /**
+   * 删除管理图片
+   */
+  async deleteAdminImage(req, res) {
+    try {
+      const imagePath = decodeURIComponent(req.params.path);
+      await this.adminService.deleteImage(imagePath);
+      res.json({
+        success: true,
+        message: 'Image deleted successfully'
+      });
+    } catch (error) {
+      res.status(500).json({
+        error: 'Internal server error',
+        message: error.message
+      });
+    }
+  }
+  
+  /**
+   * 获取管理目录列表
+   */
+  async getAdminDirectories(req, res) {
+    try {
+      const directories = await this.adminService.getDirectories();
+      res.json(directories);
+    } catch (error) {
+      res.status(500).json({
+        error: 'Internal server error',
+        message: error.message
+      });
+    }
+  }
+  
+  /**
+   * 创建管理目录
+   */
+  async createAdminDirectory(req, res) {
+    try {
+      const { name } = req.body;
+      await this.adminService.createDirectory(name);
+      res.json({
+        success: true,
+        message: 'Directory created successfully'
+      });
+    } catch (error) {
+      res.status(500).json({
+        error: 'Internal server error',
+        message: error.message
+      });
+    }
+  }
+  
+  /**
+   * 删除管理目录
+   */
+  async deleteAdminDirectory(req, res) {
+    try {
+      const directoryName = req.params.name;
+      await this.adminService.deleteDirectory(directoryName);
+      res.json({
+        success: true,
+        message: 'Directory deleted successfully'
+      });
+    } catch (error) {
+      res.status(500).json({
+        error: 'Internal server error',
+        message: error.message
+      });
+    }
+  }
+  
+  /**
+   * 获取管理统计信息
+   */
+  async getAdminStats(req, res) {
+    try {
+      const stats = await this.adminService.getStats();
+      res.json(stats);
+    } catch (error) {
+      res.status(500).json({
+        error: 'Internal server error',
+        message: error.message
+      });
+    }
+  }
+  
+  /**
+   * 更新管理图片列表
+   */
+  async updateAdminImageList(req, res) {
+    try {
+      const result = await this.adminService.updateImageList();
+      res.json({
+        success: true,
+        message: 'Image list updated successfully'
+      });
+    } catch (error) {
+      res.status(500).json({
+        error: 'Internal server error',
+        message: error.message
+      });
+    }
+  }
+  
+  /**
+   * 清理管理缓存
+   */
+  async clearAdminCache(req, res) {
+    try {
+      const result = await this.adminService.clearCache();
+      res.json({
+        success: true,
+        message: 'Cache cleared successfully'
+      });
+    } catch (error) {
+      res.status(500).json({
+        error: 'Internal server error',
+        message: error.message
+      });
+    }
+  }
+  
+  /**
+   * 处理图片上传
+   */
+  async handleImageUpload(req, res) {
+    try {
+      // 检查是否有文件上传
+      if (!req.file) {
+        return res.status(400).json({
+          error: 'Bad Request',
+          message: 'No file uploaded'
+        });
+      }
+      
+      // 获取上传的文件信息
+      const file = req.file;
+      
+      // 关键修复：直接使用multer返回的originalname
+      // 现代浏览器在FormData上传时会正确处理UTF-8编码
+      // 避免过多的编码转换，这是解决中文文件名乱码的关键
+      let filename = file.originalname;
+      
+      try {
+        // 只进行必要的URL解码
+        filename = decodeURIComponent(filename);
+        logManager.debug(`文件名处理: ${file.originalname} -> ${filename}`, { module: 'WEB' });
+      } catch (e) {
+        // 如果URL解码失败，使用原始文件名
+        logManager.warn(`文件名URL解码失败: ${e.message}，使用原始文件名`, { module: 'WEB' });
+      }
+      
+      const directory = req.body.directory || '';
+      const buffer = file.buffer;
+      
+      // 调用AdminService上传图片
+      const result = await this.adminService.uploadImage({
+        buffer: buffer,
+        filename: filename,
+        directory: directory
+      });
+      
+      res.status(200).json(result);
+    } catch (error) {
+      logManager.error(`Error handling file upload: ${error.message}`, { module: 'WEB', request: req });
+      res.status(500).json({
+        error: 'Internal server error',
+        message: error.message
+      });
+    }
   }
 
   /**

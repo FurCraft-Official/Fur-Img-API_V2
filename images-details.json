@@ -1,1 +1,642 @@
-[]
+[
+  {
+    "name": "【哲风壁纸】02-不屑.png",
+    "size": 2985105,
+    "uploadtime": "2025-02-20T07:35:01.967Z",
+    "path": "test/【哲风壁纸】02-不屑.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\test\\【哲风壁纸】02-不屑.png",
+    "_directory": "test",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】4K-动漫-原神.png",
+    "size": 7679053,
+    "uploadtime": "2025-01-25T23:53:37.499Z",
+    "path": "test/【哲风壁纸】4K-动漫-原神.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\test\\【哲风壁纸】4K-动漫-原神.png",
+    "_directory": "test",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】4K手绘-二创.png",
+    "size": 809653,
+    "uploadtime": "2025-08-24T12:19:00.295Z",
+    "path": "test/【哲风壁纸】4K手绘-二创.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\test\\【哲风壁纸】4K手绘-二创.png",
+    "_directory": "test",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】Chris插画-插画.png",
+    "size": 10099426,
+    "uploadtime": "2025-02-20T07:35:04.250Z",
+    "path": "test/【哲风壁纸】Chris插画-插画.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\test\\【哲风壁纸】Chris插画-插画.png",
+    "_directory": "test",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】hacker-IT.png",
+    "size": 9277215,
+    "uploadtime": "2025-02-20T07:34:30.915Z",
+    "path": "test/【哲风壁纸】hacker-IT.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\test\\【哲风壁纸】hacker-IT.png",
+    "_directory": "test",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】ins风-海边草地.png",
+    "size": 2543858,
+    "uploadtime": "2025-01-24T21:02:06.237Z",
+    "path": "test/【哲风壁纸】ins风-海边草地.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\test\\【哲风壁纸】ins风-海边草地.png",
+    "_directory": "test",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】Windows 错误-极简主义.png",
+    "size": 166600,
+    "uploadtime": "2025-01-25T23:54:09.309Z",
+    "path": "test/【哲风壁纸】Windows 错误-极简主义.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\test\\【哲风壁纸】Windows 错误-极简主义.png",
+    "_directory": "test",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】中二病-小鸟游六花.png",
+    "size": 1498295,
+    "uploadtime": "2025-02-20T07:35:03.295Z",
+    "path": "test/【哲风壁纸】中二病-小鸟游六花.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\test\\【哲风壁纸】中二病-小鸟游六花.png",
+    "_directory": "test",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】二次元-人物插画.png",
+    "size": 2723840,
+    "uploadtime": "2025-08-06T09:59:05.759Z",
+    "path": "test/【哲风壁纸】二次元-人物插画.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\test\\【哲风壁纸】二次元-人物插画.png",
+    "_directory": "test",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】二次元-动漫 (1).png",
+    "size": 770088,
+    "uploadtime": "2025-01-24T21:07:20.425Z",
+    "path": "test/【哲风壁纸】二次元-动漫 (1).png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\test\\【哲风壁纸】二次元-动漫 (1).png",
+    "_directory": "test",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】二次元-动漫.png",
+    "size": 2108465,
+    "uploadtime": "2025-01-24T21:06:41.052Z",
+    "path": "test/【哲风壁纸】二次元-动漫.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\test\\【哲风壁纸】二次元-动漫.png",
+    "_directory": "test",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】二次元-小鸟游六花.png",
+    "size": 17105448,
+    "uploadtime": "2025-08-06T10:00:34.824Z",
+    "path": "test/【哲风壁纸】二次元-小鸟游六花.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\test\\【哲风壁纸】二次元-小鸟游六花.png",
+    "_directory": "test",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】云-山-日落.png",
+    "size": 1882336,
+    "uploadtime": "2025-01-24T21:08:21.795Z",
+    "path": "test/【哲风壁纸】云-山-日落.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\test\\【哲风壁纸】云-山-日落.png",
+    "_directory": "test",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】仰望姿势-动漫壁纸.png",
+    "size": 434950,
+    "uploadtime": "2025-01-24T21:04:28.576Z",
+    "path": "test/【哲风壁纸】仰望姿势-动漫壁纸.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\test\\【哲风壁纸】仰望姿势-动漫壁纸.png",
+    "_directory": "test",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】动漫-女孩-美女.png",
+    "size": 1554264,
+    "uploadtime": "2025-01-25T23:54:00.716Z",
+    "path": "test/【哲风壁纸】动漫-女孩-美女.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\test\\【哲风壁纸】动漫-女孩-美女.png",
+    "_directory": "test",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】励志-风景 (1).png",
+    "size": 5134917,
+    "uploadtime": "2025-02-20T07:35:14.479Z",
+    "path": "test/【哲风壁纸】励志-风景 (1).png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\test\\【哲风壁纸】励志-风景 (1).png",
+    "_directory": "test",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】励志-风景.png",
+    "size": 6500741,
+    "uploadtime": "2025-02-20T07:33:20.907Z",
+    "path": "test/【哲风壁纸】励志-风景.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\test\\【哲风壁纸】励志-风景.png",
+    "_directory": "test",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】反射-城市.png",
+    "size": 1063917,
+    "uploadtime": "2025-02-20T07:34:41.615Z",
+    "path": "test/【哲风壁纸】反射-城市.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\test\\【哲风壁纸】反射-城市.png",
+    "_directory": "test",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】女孩-美女-黑猫.png",
+    "size": 939133,
+    "uploadtime": "2025-01-25T23:53:38.989Z",
+    "path": "test/【哲风壁纸】女孩-美女-黑猫.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\test\\【哲风壁纸】女孩-美女-黑猫.png",
+    "_directory": "test",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】少女面部特写-撕裂裂缝.png",
+    "size": 1693566,
+    "uploadtime": "2025-08-24T12:18:54.446Z",
+    "path": "test/【哲风壁纸】少女面部特写-撕裂裂缝.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\test\\【哲风壁纸】少女面部特写-撕裂裂缝.png",
+    "_directory": "test",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】手写-风景.png",
+    "size": 2587732,
+    "uploadtime": "2025-01-25T23:54:05.712Z",
+    "path": "test/【哲风壁纸】手写-风景.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\test\\【哲风壁纸】手写-风景.png",
+    "_directory": "test",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】手写-风景2.png",
+    "size": 860832,
+    "uploadtime": "2025-02-20T07:33:37.713Z",
+    "path": "test/【哲风壁纸】手写-风景2.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\test\\【哲风壁纸】手写-风景2.png",
+    "_directory": "test",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】暗色-蝴蝶.png",
+    "size": 340788,
+    "uploadtime": "2025-01-24T21:04:50.033Z",
+    "path": "test/【哲风壁纸】暗色-蝴蝶.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\test\\【哲风壁纸】暗色-蝴蝶.png",
+    "_directory": "test",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】柯南-灰原哀-美女.png",
+    "size": 608912,
+    "uploadtime": "2025-01-25T23:53:44.182Z",
+    "path": "test/【哲风壁纸】柯南-灰原哀-美女.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\test\\【哲风壁纸】柯南-灰原哀-美女.png",
+    "_directory": "test",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】海滩-深色.png",
+    "size": 1061415,
+    "uploadtime": "2025-01-25T23:53:48.786Z",
+    "path": "test/【哲风壁纸】海滩-深色.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\test\\【哲风壁纸】海滩-深色.png",
+    "_directory": "test",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】清晨-雪山.png",
+    "size": 429609,
+    "uploadtime": "2025-01-24T21:04:37.962Z",
+    "path": "test/【哲风壁纸】清晨-雪山.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\test\\【哲风壁纸】清晨-雪山.png",
+    "_directory": "test",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】真人-美女.png",
+    "size": 385186,
+    "uploadtime": "2025-01-25T23:54:13.200Z",
+    "path": "test/【哲风壁纸】真人-美女.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\test\\【哲风壁纸】真人-美女.png",
+    "_directory": "test",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】美女-蒙面.png",
+    "size": 1194256,
+    "uploadtime": "2025-01-03T01:28:22.432Z",
+    "path": "test/【哲风壁纸】美女-蒙面.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\test\\【哲风壁纸】美女-蒙面.png",
+    "_directory": "test",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】街景-风景.png",
+    "size": 4038439,
+    "uploadtime": "2025-01-25T23:53:57.722Z",
+    "path": "test/【哲风壁纸】街景-风景.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\test\\【哲风壁纸】街景-风景.png",
+    "_directory": "test",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】迷人-雏田.png",
+    "size": 840069,
+    "uploadtime": "2025-01-25T23:53:52.579Z",
+    "path": "test/【哲风壁纸】迷人-雏田.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\test\\【哲风壁纸】迷人-雏田.png",
+    "_directory": "test",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "壁纸.png",
+    "size": 1522077,
+    "uploadtime": "2025-08-03T20:38:11.343Z",
+    "path": "test/壁纸.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\test\\壁纸.png",
+    "_directory": "test",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "壁纸（即梦选取）.png",
+    "size": 2905174,
+    "uploadtime": "2025-08-29T08:14:39.761Z",
+    "path": "test/壁纸（即梦选取）.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\test\\壁纸（即梦选取）.png",
+    "_directory": "test",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】02-不屑.png",
+    "size": 2985105,
+    "uploadtime": "2025-02-20T07:35:01.967Z",
+    "path": "测试/【哲风壁纸】02-不屑.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\测试\\【哲风壁纸】02-不屑.png",
+    "_directory": "测试",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】4K-动漫-原神.png",
+    "size": 7679053,
+    "uploadtime": "2025-01-25T23:53:37.499Z",
+    "path": "测试/【哲风壁纸】4K-动漫-原神.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\测试\\【哲风壁纸】4K-动漫-原神.png",
+    "_directory": "测试",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】4K手绘-二创.png",
+    "size": 809653,
+    "uploadtime": "2025-08-24T12:19:00.295Z",
+    "path": "测试/【哲风壁纸】4K手绘-二创.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\测试\\【哲风壁纸】4K手绘-二创.png",
+    "_directory": "测试",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】Chris插画-插画.png",
+    "size": 10099426,
+    "uploadtime": "2025-02-20T07:35:04.250Z",
+    "path": "测试/【哲风壁纸】Chris插画-插画.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\测试\\【哲风壁纸】Chris插画-插画.png",
+    "_directory": "测试",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】hacker-IT.png",
+    "size": 9277215,
+    "uploadtime": "2025-02-20T07:34:30.915Z",
+    "path": "测试/【哲风壁纸】hacker-IT.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\测试\\【哲风壁纸】hacker-IT.png",
+    "_directory": "测试",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】ins风-海边草地.png",
+    "size": 2543858,
+    "uploadtime": "2025-01-24T21:02:06.237Z",
+    "path": "测试/【哲风壁纸】ins风-海边草地.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\测试\\【哲风壁纸】ins风-海边草地.png",
+    "_directory": "测试",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】Windows 错误-极简主义.png",
+    "size": 166600,
+    "uploadtime": "2025-01-25T23:54:09.309Z",
+    "path": "测试/【哲风壁纸】Windows 错误-极简主义.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\测试\\【哲风壁纸】Windows 错误-极简主义.png",
+    "_directory": "测试",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】中二病-小鸟游六花.png",
+    "size": 1498295,
+    "uploadtime": "2025-02-20T07:35:03.295Z",
+    "path": "测试/【哲风壁纸】中二病-小鸟游六花.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\测试\\【哲风壁纸】中二病-小鸟游六花.png",
+    "_directory": "测试",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】二次元-人物插画.png",
+    "size": 2723840,
+    "uploadtime": "2025-08-06T09:59:05.759Z",
+    "path": "测试/【哲风壁纸】二次元-人物插画.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\测试\\【哲风壁纸】二次元-人物插画.png",
+    "_directory": "测试",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】二次元-动漫 (1).png",
+    "size": 770088,
+    "uploadtime": "2025-01-24T21:07:20.425Z",
+    "path": "测试/【哲风壁纸】二次元-动漫 (1).png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\测试\\【哲风壁纸】二次元-动漫 (1).png",
+    "_directory": "测试",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】二次元-动漫.png",
+    "size": 2108465,
+    "uploadtime": "2025-01-24T21:06:41.052Z",
+    "path": "测试/【哲风壁纸】二次元-动漫.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\测试\\【哲风壁纸】二次元-动漫.png",
+    "_directory": "测试",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】二次元-小鸟游六花.png",
+    "size": 17105448,
+    "uploadtime": "2025-08-06T10:00:34.824Z",
+    "path": "测试/【哲风壁纸】二次元-小鸟游六花.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\测试\\【哲风壁纸】二次元-小鸟游六花.png",
+    "_directory": "测试",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】云-山-日落.png",
+    "size": 1882336,
+    "uploadtime": "2025-01-24T21:08:21.795Z",
+    "path": "测试/【哲风壁纸】云-山-日落.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\测试\\【哲风壁纸】云-山-日落.png",
+    "_directory": "测试",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】仰望姿势-动漫壁纸.png",
+    "size": 434950,
+    "uploadtime": "2025-01-24T21:04:28.576Z",
+    "path": "测试/【哲风壁纸】仰望姿势-动漫壁纸.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\测试\\【哲风壁纸】仰望姿势-动漫壁纸.png",
+    "_directory": "测试",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】动漫-女孩-美女.png",
+    "size": 1554264,
+    "uploadtime": "2025-01-25T23:54:00.716Z",
+    "path": "测试/【哲风壁纸】动漫-女孩-美女.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\测试\\【哲风壁纸】动漫-女孩-美女.png",
+    "_directory": "测试",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】励志-风景 (1).png",
+    "size": 5134917,
+    "uploadtime": "2025-02-20T07:35:14.479Z",
+    "path": "测试/【哲风壁纸】励志-风景 (1).png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\测试\\【哲风壁纸】励志-风景 (1).png",
+    "_directory": "测试",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】励志-风景.png",
+    "size": 6500741,
+    "uploadtime": "2025-02-20T07:33:20.907Z",
+    "path": "测试/【哲风壁纸】励志-风景.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\测试\\【哲风壁纸】励志-风景.png",
+    "_directory": "测试",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】反射-城市.png",
+    "size": 1063917,
+    "uploadtime": "2025-02-20T07:34:41.615Z",
+    "path": "测试/【哲风壁纸】反射-城市.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\测试\\【哲风壁纸】反射-城市.png",
+    "_directory": "测试",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】女孩-美女-黑猫.png",
+    "size": 939133,
+    "uploadtime": "2025-01-25T23:53:38.989Z",
+    "path": "测试/【哲风壁纸】女孩-美女-黑猫.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\测试\\【哲风壁纸】女孩-美女-黑猫.png",
+    "_directory": "测试",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】少女面部特写-撕裂裂缝.png",
+    "size": 1693566,
+    "uploadtime": "2025-08-24T12:18:54.446Z",
+    "path": "测试/【哲风壁纸】少女面部特写-撕裂裂缝.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\测试\\【哲风壁纸】少女面部特写-撕裂裂缝.png",
+    "_directory": "测试",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】手写-风景.png",
+    "size": 2587732,
+    "uploadtime": "2025-01-25T23:54:05.712Z",
+    "path": "测试/【哲风壁纸】手写-风景.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\测试\\【哲风壁纸】手写-风景.png",
+    "_directory": "测试",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】手写-风景2.png",
+    "size": 860832,
+    "uploadtime": "2025-02-20T07:33:37.713Z",
+    "path": "测试/【哲风壁纸】手写-风景2.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\测试\\【哲风壁纸】手写-风景2.png",
+    "_directory": "测试",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】暗色-蝴蝶.png",
+    "size": 340788,
+    "uploadtime": "2025-01-24T21:04:50.033Z",
+    "path": "测试/【哲风壁纸】暗色-蝴蝶.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\测试\\【哲风壁纸】暗色-蝴蝶.png",
+    "_directory": "测试",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】柯南-灰原哀-美女.png",
+    "size": 608912,
+    "uploadtime": "2025-01-25T23:53:44.182Z",
+    "path": "测试/【哲风壁纸】柯南-灰原哀-美女.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\测试\\【哲风壁纸】柯南-灰原哀-美女.png",
+    "_directory": "测试",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】海滩-深色.png",
+    "size": 1061415,
+    "uploadtime": "2025-01-25T23:53:48.786Z",
+    "path": "测试/【哲风壁纸】海滩-深色.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\测试\\【哲风壁纸】海滩-深色.png",
+    "_directory": "测试",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】清晨-雪山.png",
+    "size": 429609,
+    "uploadtime": "2025-01-24T21:04:37.962Z",
+    "path": "测试/【哲风壁纸】清晨-雪山.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\测试\\【哲风壁纸】清晨-雪山.png",
+    "_directory": "测试",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】真人-美女.png",
+    "size": 385186,
+    "uploadtime": "2025-01-25T23:54:13.200Z",
+    "path": "测试/【哲风壁纸】真人-美女.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\测试\\【哲风壁纸】真人-美女.png",
+    "_directory": "测试",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】美女-蒙面.png",
+    "size": 1194256,
+    "uploadtime": "2025-01-03T01:28:22.432Z",
+    "path": "测试/【哲风壁纸】美女-蒙面.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\测试\\【哲风壁纸】美女-蒙面.png",
+    "_directory": "测试",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】街景-风景.png",
+    "size": 4038439,
+    "uploadtime": "2025-01-25T23:53:57.722Z",
+    "path": "测试/【哲风壁纸】街景-风景.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\测试\\【哲风壁纸】街景-风景.png",
+    "_directory": "测试",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "【哲风壁纸】迷人-雏田.png",
+    "size": 840069,
+    "uploadtime": "2025-01-25T23:53:52.579Z",
+    "path": "测试/【哲风壁纸】迷人-雏田.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\测试\\【哲风壁纸】迷人-雏田.png",
+    "_directory": "测试",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "壁纸.png",
+    "size": 1522077,
+    "uploadtime": "2025-08-03T20:38:11.343Z",
+    "path": "测试/壁纸.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\测试\\壁纸.png",
+    "_directory": "测试",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  },
+  {
+    "name": "壁纸（即梦选取）.png",
+    "size": 2905174,
+    "uploadtime": "2025-08-29T08:14:39.761Z",
+    "path": "测试/壁纸（即梦选取）.png",
+    "_fullPath": "D:\\Team Integration\\毛皮工坊-FurForge\\Fur-node-imgapi\\img\\测试\\壁纸（即梦选取）.png",
+    "_directory": "测试",
+    "_extension": ".png",
+    "_mimeType": "image/png"
+  }
+]

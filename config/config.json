@@ -43,10 +43,10 @@
   "rate_limit": {
     "enabled": true,
     "window_size": 60000,        
-    "requests_per_minute": 20,     
+    "requests_per_minute": 200,     
     "max_clients": 100,            
     "cleanup_interval": 60000,     
-    "ban_duration": 300000
+    "ban_duration": 120000
 },
   "timezone": "Asia/Shanghai",
   "logging": {
