@@ -41,8 +41,10 @@ jobs:
       - name: Tag and push to GitHub Packages
         if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
         run: |
-          docker tag fur-img-api:latest ghcr.io/${{ github.repository }}/fur-img-api:latest
-          docker push ghcr.io/${{ github.repository }}/fur-img-api:latest
+          # 将仓库名转换为小写，符合GitHub Container Registry要求
+          REPO_NAME=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+          docker tag fur-img-api:latest ghcr.io/$REPO_NAME/fur-img-api:latest
+          docker push ghcr.io/$REPO_NAME/fur-img-api:latest
       
       - name: Login to Docker Hub
         if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
@@ -96,9 +98,11 @@ jobs:
             
             # 优先尝试从GitHub Packages拉取镜像
             echo "Trying to pull image from GitHub Packages..."
-            docker pull ghcr.io/${{ github.repository }}/fur-img-api:latest 2>/dev/null
+            # 将仓库名转换为小写，符合GitHub Container Registry要求
+            REPO_NAME=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+            docker pull ghcr.io/$REPO_NAME/fur-img-api:latest 2>/dev/null
             
-            if docker images | grep -q "ghcr.io/${{ github.repository }}/fur-img-api:latest"; then
+            if docker images | grep -q "ghcr.io/$REPO_NAME/fur-img-api:latest"; then
               # 使用GitHub Packages镜像运行容器
               echo "Using GitHub Packages image for deployment..."
               docker run -d \
@@ -108,7 +112,7 @@ jobs:
                 -v /path/to/config:/app/config \
                 -v /path/to/ssl:/app/ssl \
                 --name fur-img-api \
-                ghcr.io/${{ github.repository }}/fur-img-api:latest
+                ghcr.io/$REPO_NAME/fur-img-api:latest
             elif [ -n "${{ secrets.DOCKER_HUB_USERNAME }}" ]; then
               # 如果GitHub Packages拉取失败，尝试从Docker Hub拉取
               echo "Trying to pull image from Docker Hub..."
