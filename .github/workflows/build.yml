@@ -27,7 +27,6 @@ jobs:
         run: npm run init
       
       - name: Build Docker image
-        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
         run: |
           docker build -t fur-img-api:latest .
       
@@ -37,17 +36,21 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
+        continue-on-error: true
       
       - name: Tag and push Docker image
-        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' && env.DOCKER_HUB_USERNAME != ''
+        env:
+          DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
         run: |
           docker tag fur-img-api:latest ${{ secrets.DOCKER_HUB_USERNAME }}/fur-img-api:latest
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/fur-img-api:latest
+        continue-on-error: true
   
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' && ${{ secrets.SERVER_HOST != '' }}
     
     steps:
       - name: Deploy to server via SSH
@@ -62,15 +65,26 @@ jobs:
             docker stop fur-img-api || true
             docker rm fur-img-api || true
             
-            # 拉取最新镜像
-            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/fur-img-api:latest
-            
-            # 运行新容器
-            docker run -d \
-              -p 13000:13000 \
-              -p 13001:13001 \
-              -v /path/to/img:/app/img \
-              -v /path/to/config:/app/config \
-              -v /path/to/ssl:/app/ssl \
-              --name fur-img-api \
-              ${{ secrets.DOCKER_HUB_USERNAME }}/fur-img-api:latest
+            # 检查是否配置了Docker Hub用户名
+            if [ -n "${{ secrets.DOCKER_HUB_USERNAME }}" ]; then
+              # 如果配置了，尝试拉取镜像
+              docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/fur-img-api:latest || echo "Failed to pull image from Docker Hub, trying local build..."
+              
+              # 检查镜像是否存在
+              if docker images | grep -q "${{ secrets.DOCKER_HUB_USERNAME }}/fur-img-api:latest"; then
+                # 使用拉取的镜像运行容器
+                docker run -d \
+                  -p 13000:13000 \
+                  -p 13001:13001 \
+                  -v /path/to/img:/app/img \
+                  -v /path/to/config:/app/config \
+                  -v /path/to/ssl:/app/ssl \
+                  --name fur-img-api \
+                  ${{ secrets.DOCKER_HUB_USERNAME }}/fur-img-api:latest
+              else
+                echo "Docker image not found, skipping deployment..."
+              fi
+            else
+              echo "Docker Hub username not configured, skipping deployment..."
+            fi
+        continue-on-error: true
