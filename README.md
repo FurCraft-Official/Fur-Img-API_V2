@@ -61,7 +61,7 @@ cp config/config.json.example config/config.json
 npm run dev
 ```
 
-应用将在`http://localhost:3000`上运行。
+应用将在`http://localhost:13000`上运行。
 
 ## 配置说明
 
@@ -143,6 +143,76 @@ npm run dev
 }
 ```
 
+## Redis开关说明
+
+### 默认行为
+- 项目默认**不开启Redis**，使用内存缓存（LRU Cache）
+- 即使配置了Redis，默认也不会自动启用
+- Redis连接失败时，系统会自动回退到内存缓存
+
+### 启用Redis的方法
+
+#### 方法1：修改代码（推荐）
+
+在使用缓存的地方，显式指定使用Redis：
+
+```javascript
+const CacheFactory = require('./src/cache/CacheFactory');
+
+// 创建Redis缓存实例
+const cache = await CacheFactory.createCache(config, true);
+```
+
+#### 方法2：修改缓存工厂默认行为
+
+编辑`src/cache/CacheFactory.js`文件，修改默认Redis使用逻辑：
+
+```javascript
+// 找到这行代码
+const shouldUseRedis = useRedis !== null ? useRedis : false;
+
+// 修改为
+const shouldUseRedis = useRedis !== null ? useRedis : true;
+```
+
+### Redis配置说明
+
+确保在`config/config.json`中正确配置Redis连接信息：
+
+```json
+{
+  "redis": {
+    "host": "localhost",      // Redis主机地址
+    "port": 6379,             // Redis端口
+    "password": "",          // Redis密码（如果有）
+    "db": 0,                  // Redis数据库索引
+    "reconnect": {
+      "maxRetries": 5,        // 最大重试次数
+      "retryInterval": 8000,  // 重试间隔（毫秒）
+      "connectTimeout": 10000 // 连接超时（毫秒）
+    }
+  }
+}
+```
+
+### 验证Redis是否启用
+
+1. 启动应用后，查看日志输出
+2. 如果看到"Using Redis cache"，表示Redis已成功启用
+3. 如果看到"Using memory cache"或"Falling back to memory cache"，表示使用的是内存缓存
+4. 访问`/cache/status`端点，查看缓存状态信息
+
+### Redis与内存缓存的区别
+
+| 特性 | Redis缓存 | 内存缓存 |
+|------|-----------|----------|
+| 存储位置 | 外部Redis服务器 | 应用进程内存 |
+| 缓存容量 | 取决于Redis配置 | 取决于应用内存 |
+| 持久化 | 支持 | 不支持 |
+| 多实例共享 | 支持 | 不支持 |
+| 启动速度 | 较慢（需建立连接） | 较快 |
+| 依赖 | 需要Redis服务 | 无外部依赖 |
+
 ### 限流配置
 
 ```json
@@ -163,7 +233,7 @@ npm run dev
 ### 基础URL
 
 ```
-http://localhost:3000
+http://localhost:13000
 ```
 
 ### 端点列表
@@ -410,7 +480,8 @@ GPL-3.0
 
 ## 作者
 
-[BeiChen](https://www.beichen.icu) & [BB0813](https://home.binbim.top)
+[BeiChen](https://www.beichen.icu)
+[BB0813](https://home.binbim.top)
 
 ## 联系方式
 
@@ -432,7 +503,7 @@ GPL-3.0
 - 增加健康检查和统计信息端点
 - 实现请求限流
 
-### V1.0
+### v1.2
 - Fur-Img-API原始版本
 
 ## 致谢

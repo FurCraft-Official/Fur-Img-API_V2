@@ -10,8 +10,8 @@ class CacheFactory {
    * @returns {Promise<BaseCache>} 缓存实例
    */
   static async createCache(config, useRedis = null) {
-    // 如果没有指定是否使用Redis，根据配置决定
-    const shouldUseRedis = useRedis !== null ? useRedis : config.cache.enabled;
+    // 如果没有指定是否使用Redis，默认不使用Redis
+    const shouldUseRedis = useRedis !== null ? useRedis : false;
     
     let cache;
     
