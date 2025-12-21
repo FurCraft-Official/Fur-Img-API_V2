@@ -271,7 +271,7 @@ class ApiService {
    */
   getRandomImage(directory = null) {
     if (this.imageDetails.length === 0) {
-      logManager.debug('No images available for random selection', { module: 'API' });
+      logManager.error('No images available in imageDetails array', { module: 'API' });
       return null;
     }
     
@@ -473,9 +473,29 @@ class ApiService {
         });
       }
       
-      // 构建图片信息
-      const imagePath = selectedImage._fullPath;
-      const webPath = '/api/' + selectedImage.path;
+      // 修复点1：确保selectedImage有完整路径
+      const imagePath = selectedImage._fullPath || selectedImage.fullPath;
+      if (!imagePath) {
+        logManager.error(`No full path available for image: ${selectedImage.name}`, { module: 'API', request: req });
+        return res.status(500).json({
+          error: 'Internal server error',
+          message: 'Image path is invalid',
+          processingTime: Date.now() - startTime
+        });
+      }
+      
+      // 修复点2：确保文件路径存在
+      if (!(await this.cachedPathExists(imagePath))) {
+        logManager.error(`Image file not found: ${imagePath}`, { module: 'API', request: req });
+        return res.status(404).json({
+          error: 'Image not found',
+          message: `File not found: ${selectedImage.name}`,
+          processingTime: Date.now() - startTime
+        });
+      }
+      
+      // 修复点3：确保web路径正确构建
+      const webPath = '/api/' + (selectedImage.path || selectedImage.name);
       
       const imageInfo = {
         name: selectedImage.name,
@@ -508,20 +528,28 @@ class ApiService {
       }
       
       // 返回文件响应
-      const mimeType = selectedImage._mimeType || FileUtils.getMimeType(imagePath) || 'image/jpeg';
-      
-      res.setHeader('Content-Type', mimeType);
-      res.setHeader('Cache-Control', isRandom ? 
-        'no-cache, no-store, must-revalidate' : 
-        'public, max-age=3600'
-      );
-      // 只在响应头中使用ASCII字符，避免中文导致的错误
-      res.setHeader('X-Is-Random', isRandom.toString());
-      res.setHeader('X-Processing-Time', imageInfo.processingTime.toString());
-      res.setHeader('X-Cache', 'MISS');
-      
-      logManager.debug(`File response sent: ${selectedImage.name} (${imageInfo.processingTime}ms)`, { module: 'API', request: req });
-      return res.sendFile(path.resolve(imagePath));
+      try {
+        const mimeType = selectedImage._mimeType || FileUtils.getMimeType(imagePath) || 'image/jpeg';
+        
+        res.setHeader('Content-Type', mimeType);
+        res.setHeader('Cache-Control', isRandom ? 
+          'no-cache, no-store, must-revalidate' : 
+          'public, max-age=3600'
+        );
+        res.setHeader('X-Is-Random', isRandom.toString());
+        res.setHeader('X-Processing-Time', imageInfo.processingTime.toString());
+        res.setHeader('X-Cache', 'MISS');
+        
+        logManager.debug(`File response sent: ${selectedImage.name} (${imageInfo.processingTime}ms)`, { module: 'API', request: req });
+        return res.sendFile(path.resolve(imagePath));
+      } catch (fileErr) {
+        logManager.error(`Error sending file: ${fileErr.message}`, { module: 'API', request: req });
+        return res.status(500).json({
+          error: 'Internal server error',
+          message: 'Failed to send image file',
+          processingTime: Date.now() - startTime
+        });
+      }
       
     } catch (err) {
       const processingTime = Date.now() - startTime;
