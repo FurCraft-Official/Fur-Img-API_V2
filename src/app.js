@@ -176,8 +176,8 @@ async function startWorker(config) {
     console.log(`[DEBUG] startWorker: Loading CacheFactory...`);
     
     // 创建缓存管理器
-    console.log(`[DEBUG] startWorker: Creating cache manager, useRedis=${workerId === 1}...`);
-    const useRedis = workerId === 1; // 只有第一个工作进程使用Redis
+    console.log(`[DEBUG] startWorker: Creating cache manager, useRedis=false...`);
+    const useRedis = false; // 默认不使用Redis，可通过配置修改
     const cacheManager = await CacheFactory.createCache(config, useRedis);
     console.log('[DEBUG] startWorker: Cache manager created successfully');
     
